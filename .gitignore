@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build
+/**/build/
+
+# IDE
+/.idea
+/.awcache
+/.vscode
+*.iml
+
+# misc
+*.swp
+.DS_Store
+npm-debug.log
+/**/npm-debug.log
+/packages/**/LICENSE.txt
+*.test.tmp
+/**/package-lock.json
+
+/**/*.log
+
+/**/*.env
+/**/.env
+
+*.bytecode
