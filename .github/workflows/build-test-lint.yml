@@ -27,12 +27,19 @@ jobs:
           node-version: ${{ matrix.node }}
 
       # START DEPENDENCY CACHING
-      - name: Cache examples deps
+      - name: Cache framework examples deps
         uses: actions/cache@v1
-        id: cache_examples
+        id: cache_framework_examples
         with:
           path: packages/framework-examples/node_modules
           key: ${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('packages/framework-examples/package.json') }}
+
+      - name: Cache erc20-example deps
+        uses: actions/cache@v1
+        id: cache_erc20_example
+        with:
+          path: packages/ERC20-Example/node_modules
+          key: ${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('packages/ERC20-Example/package.json') }}
 
       # END DEPENDENCY CACHING
 
