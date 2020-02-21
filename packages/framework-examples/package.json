@@ -11,7 +11,7 @@
     "build:ovm": "mkdir -p build/waffle && waffle waffle-config.json && yarn build:truffle-ovm",
     "test": "truffle test ./truffle-tests/test-erc20.js",
     "test:ovm": "truffle test ./truffle-tests/test-erc20.js --config truffle-config-ovm.js",
-    "all": "yarn clean && yarn build && yarn test",
+    "all": "yarn clean && yarn build && yarn test && yarn all:ovm",
     "all:ovm": "yarn clean && yarn build:ovm && yarn test:ovm"
   },
   "keywords": [
@@ -30,8 +30,9 @@
     "url": "https://github.com/ethereum-optimism/ovm-integration-tests.git"
   },
   "dependencies": {
-    "@eth-optimism/solc-transpiler": "~0.0.1-alpha.9",
-    "@eth-optimism/ovm-truffle-provider-wrapper": "~0.0.1-alpha.9",
+    "@eth-optimism/solc-transpiler": "~0.0.1-alpha.11",
+    "@eth-optimism/ovm-truffle-provider-wrapper": "~0.0.1-alpha.11",
+    "@eth-optimism/rollup-full-node": "~0.0.1-alpha.11",
     "ethereum-waffle": "2.1.0",
     "rimraf": "^2.6.3",
     "truffle": "^5.1.12",

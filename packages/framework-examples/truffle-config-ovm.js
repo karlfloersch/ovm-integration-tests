@@ -1,5 +1,5 @@
 const HDWalletProvider = require("truffle-hdwallet-provider");
-const wrapProvider = require("@eth-optimism/ovm-truffle-provider-wrapper");
+const ProviderWrapper = require("@eth-optimism/ovm-truffle-provider-wrapper");
 const mnemonic = "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat";
 
 // Set this to the desired Execution Manager Address -- required for the transpiler
@@ -9,19 +9,18 @@ const gas = process.env.OVM_DEFAULT_GAS || 9000000;
 
 
 module.exports = {
+  contracts_build_directory: './build/truffle',
   /**
-   * Note: this expects the local fullnode to be running:
-   * // TODO: Run `yarn server:fullnode` in rollup-full-node before executing this test
+   * Note: Using the `test` network will start a local node at 'http://127.0.0.1:8545/'
    *
    * To run tests:
    * $ truffle test ./truffle-tests/test-erc20.js --config truffle-config-ovm.js
    */
   networks: {
-    // Note: Requires running the rollup-full-node locally.
     test: {
       network_id: 108,
       provider: function() {
-        return wrapProvider(new HDWalletProvider(mnemonic, "http://127.0.0.1:8545/", 0, 10));
+        return ProviderWrapper.wrapProviderAndStartLocalNode(new HDWalletProvider(mnemonic, "http://127.0.0.1:8545/", 0, 10));
       },
       gasPrice: gasPrice,
       gas: gas,
