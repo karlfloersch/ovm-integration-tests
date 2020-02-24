@@ -1,11 +1,13 @@
-const { assertRevert } = require('./helpers/assertRevert');
-
 const EIP20Abstraction = artifacts.require('EIP20');
 let HST;
 
 contract('EIP20', (accounts) => {
+  const tokenName = 'Optipus Coins'
+  const tokenSymbol = 'OPT'
+  const tokenDecimals = 1
+
   beforeEach(async () => {
-    HST = await EIP20Abstraction.new(10000, 'Simon Bucks', 1, 'SBX', { from: accounts[0] });
+    HST = await EIP20Abstraction.new(10000, tokenName, tokenDecimals, tokenSymbol, { from: accounts[0] });
   });
 
   it('creation: should create an initial balance of 10000 for the creator', async () => {
@@ -15,13 +17,13 @@ contract('EIP20', (accounts) => {
 
   it('creation: test correct setting of vanity information', async () => {
     const name = await HST.name.call();
-    assert.strictEqual(name, 'Simon Bucks');
+    assert.strictEqual(name, tokenName);
 
     const decimals = await HST.decimals.call();
-    assert.strictEqual(decimals.toNumber(), 1);
+    assert.strictEqual(decimals.toNumber(), tokenDecimals);
 
     const symbol = await HST.symbol.call();
-    assert.strictEqual(symbol, 'SBX');
+    assert.strictEqual(symbol, tokenSymbol);
   });
 
   it('creation: should succeed in creating over 2^256 - 1 (max) tokens', async () => {
@@ -37,17 +39,18 @@ contract('EIP20', (accounts) => {
     const balanceBefore = await HST.balanceOf.call(accounts[0]);
     assert.strictEqual(balanceBefore.toNumber(), 10000);
 
-    await assertRevert(new Promise((resolve, reject) => {
-      web3.eth.sendTransaction({ from: accounts[0], to: HST.address, value: web3.utils.toWei('10', 'Ether') }, (err, res) => {
-        if (err) { reject(err); }
-        resolve(res);
-      });
-    }));
+    let threw = false;
+    try {
+       await web3.eth.sendTransaction({ from: accounts[0], to: HST.address, value: web3.utils.toWei('10', 'Ether') })
+    } catch (e) {
+       threw = true;
+    }
+    assert.equal(threw, true)
 
     const balanceAfter = await HST.balanceOf.call(accounts[0]);
     assert.strictEqual(balanceAfter.toNumber(), 10000);
   });
-
+  
   it('transfers: should transfer 10000 to accounts[1] with accounts[0] having 10000', async () => {
     await HST.transfer(accounts[1], 10000, { from: accounts[0] });
     const balance = await HST.balanceOf.call(accounts[1]);
@@ -55,7 +58,13 @@ contract('EIP20', (accounts) => {
   });
 
   it('transfers: should fail when trying to transfer 10001 to accounts[1] with accounts[0] having 10000', async () => {
-    await assertRevert(HST.transfer.call(accounts[1], 10001, { from: accounts[0] }));
+    let threw = false;
+    try {
+       await HST.transfer.call(accounts[1], 10001, { from: accounts[0] })
+    } catch (e) {
+       threw = true;
+    }
+    assert.equal(threw, true)
   });
 
   it('transfers: should handle zero-transfers normally', async () => {
@@ -141,18 +150,36 @@ contract('EIP20', (accounts) => {
 
     // FIRST tx done.
     // onto next.
-    await assertRevert(HST.transferFrom.call(accounts[0], accounts[2], 60, { from: accounts[1] }));
+    let threw = false;
+    try {
+       await HST.transferFrom.call(accounts[0], accounts[2], 60, { from: accounts[1] })
+    } catch (e) {
+       threw = true;
+    }
+    assert.equal(threw, true)
   });
 
   it('approvals: attempt withdrawal from account with no allowance (should fail)', async () => {
-    await assertRevert(HST.transferFrom.call(accounts[0], accounts[2], 60, { from: accounts[1] }));
+    let threw = false;
+    try {
+       await HST.transferFrom.call(accounts[0], accounts[2], 60, { from: accounts[1] })
+    } catch (e) {
+       threw = true;
+    }
+    assert.equal(threw, true)
   });
 
   it('approvals: allow accounts[1] 100 to withdraw from accounts[0]. Withdraw 60 and then approve 0 & attempt transfer.', async () => {
     await HST.approve(accounts[1], 100, { from: accounts[0] });
     await HST.transferFrom(accounts[0], accounts[2], 60, { from: accounts[1] });
     await HST.approve(accounts[1], 0, { from: accounts[0] });
-    await assertRevert(HST.transferFrom.call(accounts[0], accounts[2], 10, { from: accounts[1] }));
+    let threw = false;
+    try {
+       await HST.transferFrom.call(accounts[0], accounts[2], 10, { from: accounts[1] })
+    } catch (e) {
+       threw = true;
+    }
+    assert.equal(threw, true)
   });
 
   it('approvals: approve max (2^256 - 1)', async () => {
