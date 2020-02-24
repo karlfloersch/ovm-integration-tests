@@ -1,6 +1,6 @@
 {
   "name": "@eth-optimism/ERC20-Example",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.9",
   "description": "Basic example of how to test a basic token contract on the OVM",
   "scripts": {
     "clean": "rimraf build",
@@ -26,8 +26,8 @@
     "url": "https://github.com/ethereum-optimism/ERC20-Example.git"
   },
   "dependencies": {
-    "@eth-optimism/rollup-full-node": "^0.0.1-alpha.8",
-    "@eth-optimism/solc-transpiler": "0.0.1-alpha.8",
+    "@eth-optimism/rollup-full-node": "~0.0.1-alpha.9",
+    "@eth-optimism/solc-transpiler": "~0.0.1-alpha.9",
     "ethereum-waffle": "^2.0.12",
     "mocha": "^7.0.1",
     "rimraf": "^2.6.3"

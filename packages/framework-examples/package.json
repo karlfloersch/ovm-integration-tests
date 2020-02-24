@@ -1,6 +1,6 @@
 {
   "name": "@eth-optimism/framework-examples",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1-alpha.9",
   "description": "Example of using solc-transpiler & Web3 full node in place of solc-js and other Web3 providers",
   "scripts": {
     "clean": "rimraf build",
@@ -31,7 +31,9 @@
     "url": "https://github.com/ethereum-optimism/ovm-integration-tests.git"
   },
   "dependencies": {
-    "@eth-optimism/solc-transpiler": "~0.0.1-alpha.7",
+    "@eth-optimism/solc-transpiler": "~0.0.1-alpha.11",
+    "@eth-optimism/ovm-truffle-provider-wrapper": "~0.0.1-alpha.11",
+    "@eth-optimism/rollup-full-node": "~0.0.1-alpha.11",
     "ethereum-waffle": "2.1.0",
     "rimraf": "^2.6.3",
     "truffle": "^5.1.12",

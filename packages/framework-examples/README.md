@@ -21,8 +21,7 @@ The beauty of the OVM and our compatibility with Ethereum dev tools is that you 
 1. `yarn install`
 2. `rm -rf build`
 3. `truffle compile --config truffle-config-ovm.js`
-4. Make sure the `rollup-full-node` is [running](https://github.com/ethereum-optimism/optimism-monorepo/blob/master/packages/rollup-full-node/README.md#running-the-fullnode-server)
-5. `truffle test ./truffle-tests/test-erc20.js --config truffle-config-ovm.js`
+4. `truffle test ./truffle-tests/test-erc20.js --config truffle-config-ovm.js`
 
 
 # Waffle 
