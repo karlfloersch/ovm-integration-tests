@@ -1,0 +1,43 @@
+{
+  "name": "@eth-optimism/synthetix-example",
+  "version": "0.0.1-alpha.9",
+  "description": "Example of using solc-transpiler & Web3 full node in place of solc-js and other Web3 providers",
+  "scripts": {
+    "clean": "rimraf build",
+    "build:truffle": "",
+    "build:truffle-ovm": "truffle compile --config truffle-config-ovm.js",
+    "build": "truffle compile",
+    "build:ovm": "truffle compile --config truffle-config-ovm.js",
+    "test": "truffle test ./truffle-tests/test-erc20.js",
+    "test:ovm": "env SOLC_VERSION=0.4.25 truffle test ./truffle-tests/test-erc20.js --config truffle-config-ovm.js",
+    "all": "yarn clean && yarn build && yarn test && yarn all:ovm",
+    "all:ovm": "yarn clean && yarn build:ovm && yarn test:ovm"
+  },
+  "keywords": [
+    "optimism",
+    "rollup",
+    "optimistic",
+    "ethereum",
+    "client",
+    "test"
+  ],
+  "homepage": "https://github.com/ethereum-optimism/ovm-integration-tests/tree/master/packages/framework-examples#readme",
+  "license": "MIT",
+  "author": "Optimism PBC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ethereum-optimism/ovm-integration-tests.git"
+  },
+  "dependencies": {
+    "@eth-optimism/solc-transpiler": "~0.0.1-alpha.11",
+    "@eth-optimism/ovm-truffle-provider-wrapper": "~0.0.1-alpha.11",
+    "@eth-optimism/rollup-full-node": "~0.0.1-alpha.11",
+    "ethereum-waffle": "2.1.0",
+    "rimraf": "^2.6.3",
+    "truffle": "^5.1.12",
+    "truffle-hdwallet-provider": "^1.0.17"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
