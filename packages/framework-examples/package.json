@@ -12,7 +12,8 @@
     "test": "truffle test ./truffle-tests/test-erc20.js",
     "test:ovm": "truffle test ./truffle-tests/test-erc20.js --config truffle-config-ovm.js",
     "all": "yarn clean && yarn build && yarn test",
-    "all:ovm": "yarn clean && yarn build:ovm && yarn test:ovm"
+    "all:ovm": "yarn clean && yarn build:ovm && yarn test:ovm",
+    "all:truffle-ovm": "yarn clean && yarn build:truffle-ovm && yarn test:ovm"
   },
   "keywords": [
     "optimism",
